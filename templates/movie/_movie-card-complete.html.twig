@@ -1,0 +1,45 @@
+<div class="row">
+    {% for movie in movies %}
+        <div class="col-4">
+            <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                <a class="no-underline card-img-link" href="{{ path('movie_show', {'slug': movie.slug}) }}">
+                    <img class="card-img-top" src="{{ movie.poster }}" alt="Affiche du film {{ movie.title }}">
+                </a>
+                <div class="card-body">
+                    <a class="no-underline" href="{{ path('movie_show', {'slug': movie.slug}) }}">
+                        <h4 class="card-title text-primary underline-hover">{{ movie.title }}</h4>
+                    </a>
+
+                    <small class="d-block mb-1 text-primary">{{ movie.releasedAt | date('Y') }}</small>
+
+                    <p class="mt-2 mb-1">
+                        Réalisé par
+                        <a class="text-info font-weight-bold" href="{{ path('show_people', {'slug': movie.director.slug}) }}">{{ movie.director.fullName }}</a>
+                    </p>
+
+                    <p class="mb-2">
+                        {% set otherActorsNb = movie.actors | length - 2 %}
+                        Avec
+                        {% for actor in movie.getRandomActors() %}
+                            <a class="text-info font-weight-bold"
+                               href="{{ path('show_people', {'slug': actor.slug}) }}"
+                            >{{ actor.fullName }}</a>{% if not loop.last %},
+                            {% else %}
+                                {% if otherActorsNb == 1 %}
+                                    et {{ otherActorsNb }} autre
+                                {% elseif otherActorsNb > 1 %}
+                                    et {{ otherActorsNb }} autres
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+
+                    <div class="rating rating-little">
+                        {% set starsInfo = movie.starsInfo %}
+                        {% include 'movie/rating-stars.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

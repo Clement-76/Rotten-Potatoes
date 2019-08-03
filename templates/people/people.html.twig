@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ people.fullName }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <img class="col-4" src="{{ people.picture }}" alt="{{ people.fullName }}">
+
+        <div class="col-8">
+            <h1>{{ people.fullName }}</h1>
+            <p>Date de naissance : <b class="text-primary font-weight-bold">{{ people.birthday | date('d/m/Y') }}</b></p>
+            <hr>
+            <h2>Description</h2>
+            <div class="text-primary">{{ people.description }}</div>
+        </div>
+    </div>
+
+    {% if people.directed | length > 0 %}
+        <h2 class="mt-5 mb-3">{{ people.fullName }} a réalisé</h2>
+        <div class="row">
+            {% for movie in people.directed %}
+                {% include 'movie/movie-card-small.html.twig' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <h2 class="mt-5 mb-3">{{ people.fullName }} n'a réalisé aucun film</h2>
+    {% endif %}
+
+    {% if people.actedIn | length > 0 %}
+        <h2 class="mt-5 mb-3">{{ people.fullName }} a joué dans</h2>
+        <div class="row">
+            {% for movie in people.actedIn %}
+                {% include 'movie/movie-card-small.html.twig' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <h2 class="mt-5 mb-3">{{ people.fullName }} n'a joué dans aucun film</h2>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://kit.fontawesome.com/09c0563430.js"></script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des films{% endblock %}
+
+{% set bodyClasses = 'light-grey' %}
+
+{% block body %}
+    <h1>Administration des films</h1>
+
+    <a href="{{ path('create_movie') }}" class="btn btn-primary mb-2 mt-3">Ajouter un film</a>
+
+    <div class="table-responsive-lg">
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark border border-dark">
+                <tr>
+                    <th>id</th>
+                    <th>Titre</th>
+                    <th>Sortit le</th>
+                    <th>Synopsis</th>
+                    <th>Catégories</th>
+                    <th>Réalisé par</th>
+                    <th>Joué par</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in movies %}
+                    <tr class="border">
+                        <td>{{ movie.id }}</td>
+                        <td>{{ movie.title }}</td>
+                        <td>{{ movie.releasedAt | date('d/m/Y') }}</td>
+                        <td>{{ movie.summary }}</td>
+                        <td>
+                            {% for category in movie.categories %}
+                                {{ category.title }}
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for actor in movie.actors %}
+                                {{ actor.fullName }}
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{{ movie.director.fullName }}</td>
+                        <td>
+                            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?')" href="{{ path('delete_movie', {'id': movie.id}) }}" class="btn btn-danger">Supprimer</a>
+                            <a class="btn btn-primary my-1" href="{{ path('movie_show', {'slug': movie.slug}) }}">Voir</a>
+                            <a href="{{ path('edit_movie', {'id': movie.id}) }}" class="btn btn-warning">Modifier</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,107 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.navbar-brand {
+    border: 2px solid #fff;
+    padding: 5px;
+}
+
+a.no-underline:hover {
+    text-decoration: none !important;
+}
+
+a:hover .underline-hover {
+    text-decoration: underline !important;
+}
+
+.fz-normal {
+    font-size: 1.05rem;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+}
+
+.rating .star {
+    color: #F4C400;
+    font-size: 1.3rem;
+    margin-right: 2px;
+}
+
+.rating-value {
+    color: #F4C400;
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-left: 5px;
+}
+
+.rating-little .rating-value,
+.rating-little .star {
+    font-size: 1.1rem;
+}
+
+.light-grey {
+    background-color: #f6f6f6;
+}
+
+.people-fullname {
+    font-size: 0.9rem;
+}
+
+input.notation {
+    width: auto;
+    padding-left: 18px;
+    padding-right: 12px;
+}
+
+#menu {
+    padding: 18px 16px;
+}
+
+body {
+    padding-top: 115px;
+}
+
+.notation-rating {
+    width: 15%;
+}
+
+.rating-comment {
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+.card-img-link:hover + .card-body .card-title {
+    text-decoration: underline;
+}
+
+.main-banner {
+    overflow: auto;
+    height: 500px;
+    text-align: center;
+    background: url('../img/cinema-background.jpg') center / cover no-repeat;
+}
+
+.main-banner .title {
+    padding: 5px 25px;
+    color: #f6f6f6;
+    font-size: 2.5rem;
+    margin-top: 40px;
+}
+
+.main-banner .btn-action {
+    background-color: #7A1F21;
+    font-size: 1rem;
+    margin-top: 35px;
+    border-radius: 3px;
+}
+
+.main-banner .btn-action:active {
+    background-color: #55151e !important;
+}
+
+footer {
+    padding: 30px 0;
+}

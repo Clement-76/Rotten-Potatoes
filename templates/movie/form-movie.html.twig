@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block title %}
+    {% if editMode %}
+        Modifier le film
+    {% else %}
+        Créer un film
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if editMode %}
+        <h1>Modifier le film</h1>
+    {% else %}
+        <h1>Créer un film</h1>
+    {% endif %}
+
+    {{ form_start(movieForm, {'attr': {'novalidate': 'novalidate'}}) }}
+
+    {{ form_widget(movieForm) }}
+
+    <button class="btn btn-success mt-3">
+        {% if editMode %}
+            Modifier le film
+        {% else %}
+            Créer le film
+        {% endif %}
+    </button>
+
+    {{ form_end(movieForm) }}
+
+{% endblock %}

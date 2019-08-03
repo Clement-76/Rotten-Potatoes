@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration des notations{% endblock %}
+
+{% set bodyClasses = 'light-grey' %}
+
+{% block body %}
+    <h1 class="mb-3">Administration des films</h1>
+
+    <div class="table-responsive-lg">
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark border border-dark">
+            <tr>
+                <th>id</th>
+                <th>Écrit le</th>
+                <th>Auteur</th>
+                <th>commentaire</th>
+                <th class="notation-rating">Note donnée</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for rating in ratings %}
+                <tr class="border">
+                    <td>{{ rating.id }}</td>
+                    <td>{{ rating.createdAt | date('d/m/Y') }}</td>
+                    <td>{{ rating.author.name }}</td>
+                    <td class="py-1"><div class="rating-comment">{{ rating.comment }}</div></td>
+                    <td><b class="font-weight-bold text-primary">{{ rating.notation }}</b> / 5</td>
+                    <td><a onclick="return confirm('Êtres-vous sûr de vouloir supprimer cette note ?')" href="{{ path('delete_rating', {'id': rating.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

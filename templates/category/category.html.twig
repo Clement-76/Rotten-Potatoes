@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.title }}{% endblock %}
+
+{% set bodyClasses = 'light-grey' %}
+
+{% block body %}
+    {% if category.movies | length > 0 %}
+        <h1 class="mb-3">Les films de la catégorie "<b class="font-weight-bold">{{ category.title }}</b>"</h1>
+    {% else %}
+        <h1>Il n'y a aucun film appartenant à cette catégorie</h1>
+    {% endif %}
+    
+    <div class="row articles-category">
+        {% for movie in category.movies %}
+            {% include 'movie/movie-card.html.twig' %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://kit.fontawesome.com/09c0563430.js"></script>
+{% endblock %}

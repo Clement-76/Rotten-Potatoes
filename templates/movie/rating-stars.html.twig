@@ -1,0 +1,11 @@
+{% for a in 1..starsInfo.fullStars if starsInfo.fullStars > 0 %}
+    <i class="fas fa-star star"></i>
+{% endfor %}
+{% for b in 1..starsInfo.halfStars if starsInfo.halfStars > 0 %}
+    <i class="fas fa-star-half-alt star"></i>
+{% endfor %}
+{% for c in 1..starsInfo.fullEmptyStars if starsInfo.fullEmptyStars > 0 %}
+    <i class="far fa-star star"></i>
+{% endfor %}
+
+<b class="rating-value">{{ starsInfo.starsNb }}</b>

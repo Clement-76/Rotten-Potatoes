@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% set bodyClasses = 'light-grey' %}
+
+{% block body %}
+    <div class="row">
+        <img class="col-4" src="{{ movie.poster }}" alt="affiche du film {{ movie.title }}">
+
+        <div class="col-8">
+            <h1 class="mb-3">{{ movie.title }}</h1>
+            <p class="mb-0">Sortit le <b class="font-weight-bold">{{ movie.releasedAt | date('d/m/Y') }}</b></p>
+            <p class="my-2">
+                Réalisé par
+                <a class="text-info font-weight-bold"
+                   href="{{ path('show_people', {'slug': movie.director.slug}) }}">{{ movie.director.fullName }}
+                </a>
+            </p>
+            <p class="mb-2">
+                Avec
+                {% for actor in movie.actors %}
+                    <a class="text-info font-weight-bold" href="{{ path('show_people', {'slug': actor.slug}) }}">{{ actor.fullName }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <div class="mt-3">
+                {% for category in movie.categories %}
+                    <a class="badge badge-pill badge-info px-3 py-2" href="{{ path('category', {'slug': category.slug}) }}">{{ category.title }}</a>
+                {% endfor %}
+            </div>
+
+            <hr class="my-3">
+
+            <h2>Synopsis</h2>
+            <div class="fz-normal text-primary">{{ movie.synopsis }}</div>
+
+            <div class="rating mt-3">
+                {% set starsInfo = movie.starsInfo %}
+                {% include 'movie/rating-stars.html.twig' %}
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-5 mb-3">RÉALISATEUR/RÉALISATRICE</h2>
+    <div class="row">
+        <a href="{{ path('show_people', {'slug': movie.director.slug}) }}" class="col-2">
+            <div class="card border-secondary mb-3 rounded" style="max-width: 20rem;">
+                <img class="card-img-top rounded-top" src="{{ movie.director.picture }}" alt="Photo de profil de {{ movie.director.picture }}">
+                <div class="card-body text-center">
+                    <h4 class="card-title mb-0 people-fullname">{{ movie.director.fullName }}</h4>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <h2 class="mt-4 mb-3">ACTEURS/ACTRICES</h2>
+    <div class="row">
+        {% for actor in movie.actors %}
+            <a href="{{ path('show_people', {'slug': actor.slug}) }}" class="col-2">
+                <div class="card border-secondary mb-3 rounded" style="max-width: 20rem;">
+                    <img class="card-img-top rounded-top" src="{{ actor.picture }}" alt="Photo de profil de {{ movie.director.picture }}">
+                    <div class="card-body text-center">
+                        <h4 class="card-title mb-0 people-fullname">{{ actor.fullName }}</h4>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+    <h2 class="my-4">AVIS ({{ movie.ratings | length }})</h2>
+
+    <div class="alert alert-light rounded mb-5 p-3">
+        {% if is_granted('ROLE_USER') %}
+            <h3>Donnez votre avis</h3>
+            {{ include('comment/comment-form.html.twig') }}
+        {% else %}
+            <h2 class="alert-title mb-3">Connectez-vous pour pouvoir commenter</h2>
+            <a href="{{ path('app_login') }}" class="btn btn-primary text-white">Connectez-vous</a>
+            ou
+            <a href="{{ path('app_register') }}" class="btn btn-primary text-white">Inscrivez-vous</a>
+        {% endif %}
+    </div>
+
+    {% for rating in movie.ratings %}
+        <div class="mb-3 d-flex align-items-start">
+            <a href="#" class="d-block">
+                <img class="rounded-circle mr-3" src="{{ rating.author.avatar }}" alt="Photo de profil de {{ rating.author.name }}">
+            </a>
+            <div>
+                <div class="card border-secondary mb-3 rounded">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary mb-0">
+                            {{ rating.author.name }} <span class="text-lowercase">le</span> <b class="font-weight-bold">{{ rating.createdAt | date('d/m/Y') }}</b>
+                        </h4>
+                        <div class="rating rating-little my-1">
+                            {% set starsInfo = rating.starsInfo %}
+                            {% include 'movie/rating-stars.html.twig' %}
+                        </div>
+                        <p class="card-text text-primary">{{ rating.comment }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://kit.fontawesome.com/09c0563430.js"></script>
+{% endblock %}

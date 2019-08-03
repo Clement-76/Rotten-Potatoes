@@ -1,0 +1,18 @@
+<div class="col-4">
+    <a class="no-underline" href="{{ path('movie_show', {'slug': movie.slug}) }}">
+        <div class="card border-secondary mb-3" style="max-width: 20rem;">
+            <img class="card-img-top" src="{{ movie.poster }}" alt="Affiche du film {{ movie.title }}">
+            <div class="card-body">
+                <h4 class="card-title text-primary underline-hover">{{ movie.title }}</h4>
+
+                <small class="d-block mb-1 text-primary">Sortit le {{ movie.releasedAt | date('d/m/Y') }}</small>
+                <p class="card-text text-primary mb-1">{{ movie.summary }}</p>
+
+                <div class="rating rating-little">
+                    {% set starsInfo = movie.starsInfo %}
+                    {% include 'movie/rating-stars.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
