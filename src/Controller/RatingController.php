@@ -13,7 +13,7 @@ class RatingController extends AbstractController {
 
     /**
      * @Route("/admin/rating", name="rating_list")
-     * @IsGranted({"ROLE_ADMIN", "ROLE_MODERATOR"})
+     * @IsGranted("ROLE_MODERATOR")
      */
     public function index(RatingRepository $repo) {
         return $this->render('rating/index.html.twig', [
@@ -23,7 +23,7 @@ class RatingController extends AbstractController {
 
     /**
      * @Route("/admin/rating/{id}/delete", name="delete_rating")
-     * @IsGranted({"ROLE_ADMIN", "ROLE_MODERATOR"})
+     * @IsGranted("ROLE_MODERATOR")
      */
     public function delete(ObjectManager $manager, Rating $rating) {
         $manager->remove($rating);

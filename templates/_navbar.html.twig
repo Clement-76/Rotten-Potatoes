@@ -10,12 +10,12 @@
                 <li class="nav-item">
                     <a class="nav-link {% if app.request.attributes.get('_route') == 'home' %}active{% endif %}" href="{{ path('home') }}">Accueil</a>
                 </li>
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_MODERATOR') %}
                     <li class="nav-item {% if app.request.attributes.get('_route') == 'rating_list' %}active{% endif %}">
                         <a href="{{ path('rating_list') }}" class="nav-link">Avis</a>
                     </li>
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MODERATOR')  %}
+                {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item {% if app.request.attributes.get('_route') == 'list_movies' %}active{% endif %}">
                         <a href="{{ path('list_movies') }}" class="nav-link">Films</a>
                     </li>
