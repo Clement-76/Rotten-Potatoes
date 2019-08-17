@@ -16,7 +16,6 @@ stars.forEach(star => {
         if (ratingInput.value == 0) {
             stars.forEach(elt => elt.classList.replace('fas', 'far'));
         } else {
-            console.log(stars);
             [...stars].slice(0, ratingInput.value).forEach(star => {
                 getPreviousSiblings(star).forEach(elt => elt.classList.replace('far', 'fas'));
                 getNextSiblings(star, false).forEach(elt => elt.classList.replace('fas', 'far'));

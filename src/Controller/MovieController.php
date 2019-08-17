@@ -8,6 +8,7 @@ use App\Form\MovieType;
 use App\Form\RatingType;
 use App\Repository\CategoryRepository;
 use App\Repository\MovieRepository;
+use App\Repository\RatingRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -80,13 +81,21 @@ class MovieController extends AbstractController {
     /**
      * @Route("/movie/{slug}", name="movie_show")
      */
-    public function show(Movie $movie, Request $request) {
-
+    public function show(Movie $movie, Request $request, RatingRepository $ratingRepo) {
         $rating = new Rating();
+
         $form = $this->createForm(RatingType::class, $rating);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $this->isGranted('ROLE_USER')) {
+        // check if the user didn't already post a comment
+        $currentUserRating = $ratingRepo->findOneBy([
+            'author' => $this->getUser(),
+            'movie' => $movie
+        ]);
+
+        $ratingIsUnique = is_null($currentUserRating);
+
+        if ($form->isSubmitted() && $form->isValid() && $this->isGranted('ROLE_USER') && $ratingIsUnique) {
             $rating->setMovie($movie)
                 ->setAuthor($this->getUser());
 
@@ -99,7 +108,8 @@ class MovieController extends AbstractController {
 
         return $this->render('movie/movie.html.twig', [
             'movie' => $movie,
-            'commentForm' => $form->createView()
+            'commentForm' => $form->createView(),
+            'ratingIsUnique' => $ratingIsUnique
         ]);
     }
 }
