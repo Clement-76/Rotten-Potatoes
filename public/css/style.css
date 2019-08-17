@@ -27,7 +27,8 @@ a:hover .underline-hover {
 .rating .star {
     color: #F4C400;
     font-size: 1.3rem;
-    margin-right: 2px;
+    /*margin-right: 2px;*/
+    padding: 0 1px;
 }
 
 .rating-value {
@@ -50,10 +51,20 @@ a:hover .underline-hover {
     font-size: 0.9rem;
 }
 
-input.notation {
-    width: auto;
-    padding-left: 18px;
-    padding-right: 12px;
+#hidden-star {
+    display: block;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#rating-form .star {
+    cursor: pointer;
+    font-size: 1.6rem;
+    /*padding: 0 5px;*/
 }
 
 #menu {

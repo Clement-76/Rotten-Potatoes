@@ -5,11 +5,11 @@
 {% block body %}
 <form method="post">
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-danger">Identifiants incorrects</div>
     {% endif %}
 
     {% if app.user %}
-        <div class="checkbox mb-3">Vous êtes connecté en tant que {{ app.user.name }}, <a href="{{ path('app_logout') }}">Logout</a></div>
+        <div class="checkbox mb-3">Vous êtes connecté en tant que {{ app.user.name }}, <a href="{{ path('app_logout') }}">Se déconnecter</a></div>
     {% endif %}
 
     <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>

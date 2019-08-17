@@ -1,12 +1,30 @@
-{{ form_start(commentForm, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_start(commentForm, {'attr': {
+    'novalidate': 'novalidate',
+    'id': 'rating-form'
+}}) }}
 
-<div class="form-group">
-    {{ form_label(commentForm.notation, null, {'label_attr': {'class': 'd-block'}}) }}
-    {{ form_widget(commentForm.notation, {'attr': {'class': 'form-control notation d-inline-block'}}) }}
-    <span>/5</span>
+{#<div class="form-group" id="rating-form">#}
+    {#{{ form_label(commentForm.notation, null, {'label_attr': {'class': 'd-block'}}) }}#}
+    {#{{ form_widget(commentForm.notation, {'attr': {'class': 'form-control notation d-inline-block'}}) }}#}
+    {#<span>/5</span>#}
+{#</div>#}
+
+<p class="mb-2">Note :</p>
+{{ form_widget(commentForm.notation) }}
+
+<!-- to load the fas version of the star icon -->
+<i id="hidden-star" class="fas fa-star"></i>
+
+<div class="rating mb-3">
+    <i class="far fa-star star" data-value="1"></i>
+    <i class="far fa-star star" data-value="2"></i>
+    <i class="far fa-star star" data-value="3"></i>
+    <i class="far fa-star star" data-value="4"></i>
+    <i class="far fa-star star" data-value="5"></i>
 </div>
 
 {{ form_widget(commentForm) }}
+
 <button class="btn btn-primary">Envoyer</button>
 
 {{ form_end(commentForm) }}
