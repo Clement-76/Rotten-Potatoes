@@ -13,12 +13,7 @@
     
     <div class="row articles-category">
         {% for movie in category.movies %}
-            {% include 'movie/movie-card.html.twig' %}
+            {% include 'movie/_movie-card.html.twig' %}
         {% endfor %}
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://kit.fontawesome.com/09c0563430.js"></script>
 {% endblock %}

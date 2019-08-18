@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche - {{ searchTerm }}{% endblock %}
+
+{% set bodyClasses = 'light-grey' %}
+
+{% block body %}
+    {% if movies %}
+        {% set nbMovies = movies | length %}
+        <h1 class="mb-3">{{ nbMovies }} {% if nbMovies > 1 %}films correspondent{% else %}film correspond{% endif %} à votre recherche "<b class="font-weight-bold">{{ searchTerm }}</b>"</h1>
+
+        <div class="row">
+            {% for movie in movies %}
+                {{ include('movie/_movie-card.html.twig') }}
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1>Aucun film ne correspond à votre recherche "<b class="font-weight-bold">{{ searchTerm }}</b>"</h1>
+
+        <img src="{{ asset('img/undraw_empty.svg') }}" class="mt-5 mb-1 mx-auto d-block search-not-found" alt="">
+        
+        {# Proposer de faire quelque chose #}
+    {% endif %}
+
+    {# 5) dans la vue, si pas de film mettre "aucun resultat..."#}
+    {# 6) vérifier que tout fonctionne meme si on envoi un terme vide#}
+
+{% endblock %}

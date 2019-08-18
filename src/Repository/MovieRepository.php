@@ -19,6 +19,24 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
+    /**
+     * Search a movie with the given term in its title, synopsis and its categories
+     * @param string $term
+     * @param int|null $maxResults
+     * @return mixed an empty array or a movies collection
+     */
+    public function findMoviesWithTerm(string $term, int $maxResults = null) {
+        return $this->createQueryBuilder('m')
+            ->leftJoin('m.categories', 'c')
+            ->orWhere('m.title LIKE :term')
+            ->orWhere('m.synopsis LIKE :term')
+            ->orWhere('c.title LIKE :term')
+            ->setParameter('term', "%$term%")
+            ->setMaxResults($maxResults)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getMoviesBy($sort, $order, $nb = 3) {
 
 //        $sql = 'SELECT movie.*

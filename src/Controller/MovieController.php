@@ -13,6 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MovieController extends AbstractController {
@@ -76,6 +77,18 @@ class MovieController extends AbstractController {
         $manager->remove($movie);
         $manager->flush();
         return $this->redirectToRoute('list_movies');
+    }
+
+    /**
+     * @Route("/movie/search", name="search-movie", methods={"POST"})
+     */
+    public function search(Request $request, MovieRepository $repo) {
+        $searchTerm = $request->request->get('search-term');
+
+        return $this->render('movie/search.html.twig', [
+            'movies' => $repo->findMoviesWithTerm($searchTerm, 1),
+            'searchTerm' => $searchTerm
+        ]);
     }
 
     /**
