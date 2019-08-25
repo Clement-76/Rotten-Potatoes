@@ -21,10 +21,7 @@
                     </li>
                 {% endif %}
             </ul>
-            <form action="{{ path('search-movie') }}" method="post" id="movies-search" class="form-inline my-2 my-lg-0 mr-sm-3">
-                <input name="search-term" class="form-control py-2 pr-5 h-auto" type="text" placeholder="Rechercher un film...">
-                <button type="submit" title="Rechercher"><i class="fas fa-search"></i></button>
-            </form>
+            {% include 'movie/_search-form.html.twig' with {'class': 'large-screen-form'} %}
             <ul class="navbar-nav">
                 {% if not is_granted('ROLE_USER') %}
                     <li class="nav-item {% if app.request.attributes.get('_route') == 'app_login' %}active{% endif %}">
@@ -39,6 +36,7 @@
                     </li>
                 {% endif %}
             </ul>
+            {% include 'movie/_search-form.html.twig' with {'class': 'mobile-form'} %}
         </div>
     </div>
 </nav>

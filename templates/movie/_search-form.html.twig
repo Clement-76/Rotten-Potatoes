@@ -1,0 +1,4 @@
+<form action="{{ path('search-movie') }}" method="post" class="{{ class | default('') }} movies-search form-inline d-sm-inline my-2 my-lg-0 mr-sm-3">
+    <input required name="search-term" class="form-control py-2 pr-5 h-auto" type="text" placeholder="Rechercher un film...">
+    <button type="submit" title="Rechercher"><i class="fas fa-search"></i></button>
+</form>

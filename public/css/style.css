@@ -116,11 +116,11 @@ footer {
     padding: 30px 0;
 }
 
-#movies-search {
+.movies-search {
     position: relative;
 }
 
-#movies-search button {
+.movies-search button {
     outline: #5E9ED7;
     display: flex;
     align-items: center;
@@ -132,7 +132,7 @@ footer {
     background-color: transparent;
 }
 
-#movies-search button .fa-search {
+.movies-search button .fa-search {
     font-size: 1.1rem;
     color: #1a1a1a;
 }
@@ -144,5 +144,17 @@ footer {
 @media all and (max-width: 768px) {
     .search-not-found {
         width: 75%;
+    }
+}
+
+@media all and (min-width: 992px) {
+    .mobile-form {
+        display: none !important;
+    }
+}
+
+@media all and (max-width: 991px) {
+    .large-screen-form {
+        display: none !important;
     }
 }
